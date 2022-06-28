@@ -1,5 +1,5 @@
 //Calculadora
- const calcular = function (valor1, valor2, operacao){
+const calcular = function (valor1, valor2, operacao){
     let resultado;
     if (operacao == 'SOMAR'){
         resultado = somar(valor1, valor2);
