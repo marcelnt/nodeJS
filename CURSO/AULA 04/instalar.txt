@@ -1,13 +1,13 @@
-npm install express --save
-npm install cors --save
+npm install express --save ok
+npm install cors --save ok
 npm install sequelize --save
 npm install mysql2 --save
-install --save body-parser
+install --save body-parser ok
 
 
 
-Instalação do Prisma
-npm install prisma --save-dev
+Instalação do Prisma - ok
+npm install prisma --save-dev 
 npx prisma
 npx prisma init
 npm install @prisma/client
