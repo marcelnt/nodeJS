@@ -26,10 +26,18 @@ app.get('/categoria',cors(), async function(request, response){
 
     let statusCode;
     let message;
+    let limit = 0;
+    let page = 0;
+
+    if (request.query["limit"])
+        limit = request.query["limit"];
+    
+    if (request.query["page"])
+        page = request.query["page"];
 
 //   import do arquivo de funções
   const controllerCategoria = require('./controller/controllerCategoria');
-  const listCategorias = await controllerCategoria.listarCategoria();
+  const listCategorias = await controllerCategoria.listarCategoria(limit, page);
 
   if (listCategorias)
   {

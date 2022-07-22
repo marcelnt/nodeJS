@@ -51,12 +51,22 @@ const deleteCategoria = async function(id) {
 }
 
 //função para listar todos os registros do BD
-const  selectAllCategoria = async function() {
+const  selectAllCategoria = async function(rows, page) {
 
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient();
 
-    const rsCategoria = await prisma.$queryRaw `select * from tblCategoria`;
+    if (rows > 0 && page == 0)
+        sql = "select * from tblCategoria limit "+rows;
+    else if (rows > 0 && page > 0) 
+        sql = "select * from tblCategoria limit "+rows+" offset "+page;
+    else
+        sql = "select * from tblCategoria";
+
+    console.log(sql);
+    
+    //const rsCategoria = await prisma.$queryRaw `select * from tblCategoria`;
+    const rsCategoria = await prisma.$queryRawUnsafe (sql);
     // const allUsers = prisma.user.findMany;
     if(rsCategoria.length > 0)
        return rsCategoria;

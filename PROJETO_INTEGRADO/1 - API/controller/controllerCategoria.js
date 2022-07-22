@@ -44,10 +44,20 @@ const excluirCategoria = async function(id) {
 }
   
 //função para listar todos os registros do BD
-const listarCategoria = async function() {
+const listarCategoria = async function(rows, page) {
+
+    let offset;
+
+    if (page == 1 || page == 0)
+    {
+        offset = 0;
+    }else if (page > 1){
+        offset = rows * (page-1);
+    }
+
     //import do arquivo de funções
     const categoria = require('../model/DAO/categoria.js');
-    result = await categoria.selectAllCategoria();
+    result = await categoria.selectAllCategoria(rows, offset);
 
     return result;
 }
