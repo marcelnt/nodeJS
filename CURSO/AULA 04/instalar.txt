@@ -11,3 +11,5 @@ npm install prisma --save-dev
 npx prisma
 npx prisma init
 npm install @prisma/client
+
+npx prisma migrate dev (deve ser executado para realizar o sincronismo com o banco de dados)
