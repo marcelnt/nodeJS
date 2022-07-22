@@ -1,18 +1,18 @@
 /*************************************************************************************************************************************
 *   Projeto: Pizzaria   
-*   Objetivo: Controller de categoria => Permite administrar as categorias da Pizzaria implementando as regras de negocio do projeto
+*   Objetivo: Controller de produto => Permite administrar os produtos da Pizzaria implementando as regras de negocio do projeto
 *   Autor: Marcel
 *   Data criação: 22/07/2022
 *   
 **************************************************************************************************************************************/
 
 //função para inserir um novo registro no BD
-const novoCategoria = async function(dados) {
+const novoproduto = async function(dados) {
     let status = false;
    
     //import do arquivo de funções
-    const categoria = require('../model/DAO/categoria.js');
-    const result = await categoria.insertCategoria(dados);
+    const produto = require('../model/DAO/produto.js');
+    const result = await produto.insertproduto(dados);
 
     if(result)
         status = true;
@@ -22,12 +22,12 @@ const novoCategoria = async function(dados) {
 }
 
 //função para atualizar um registro no BD
-const atualizarCategoria = async function(dados) {
+const atualizarproduto = async function(dados) {
     let status = false;
 
     //import do arquivo de funções
-    const categoria = require('../model/DAO/categoria.js');
-    result = await categoria.updateCategoria(dados);
+    const produto = require('../model/DAO/produto.js');
+    result = await produto.updateproduto(dados);
 
     if(result)
         status = true;
@@ -36,12 +36,12 @@ const atualizarCategoria = async function(dados) {
 }
   
 //função para apagar um registro no BD
-const excluirCategoria = async function(id) {
+const excluirproduto = async function(id) {
     let status = false;
 
     //import do arquivo de funções
-    const categoria = require('../model/DAO/categoria.js');
-    result = await categoria.deleteCategoria(id);
+    const produto = require('../model/DAO/produto.js');
+    result = await produto.deleteproduto(id);
 
     if(result)
         status = true;
@@ -50,7 +50,7 @@ const excluirCategoria = async function(id) {
 }
   
 //função para listar todos os registros do BD
-const listarCategoria = async function(rows, page) {
+const listarproduto = async function(rows, page) {
 
     let offset;
 
@@ -62,35 +62,35 @@ const listarCategoria = async function(rows, page) {
     }
 
     //import do arquivo de funções
-    const categoria = require('../model/DAO/categoria.js');
-    result = await categoria.selectAllCategoria(rows, offset);
+    const produto = require('../model/DAO/produto.js');
+    result = await produto.selectAllproduto(rows, offset);
 
     return result;
 }
 
 //função para listar todos os registros do BD
-const buscarCategoria = async function(id) {
+const buscarproduto = async function(id) {
     //import do arquivo de funções
-    const categoria = require('../model/DAO/categoria.js');
-    result = await categoria.selectByIdCategoria(id);
+    const produto = require('../model/DAO/produto.js');
+    result = await produto.selectByIdproduto(id);
 
     return result;
 }
   
 //função para listar todos os registros do BD
-const buscarUltimaCategoria = async function() {
+const buscarUltimaproduto = async function() {
     //import do arquivo de funções
-    const categoria = require('../model/DAO/categoria.js');
-    result = await categoria.selectByLastCategoria();
+    const produto = require('../model/DAO/produto.js');
+    result = await produto.selectByLastproduto();
 
     return result;
 } 
 //torna as funções globais para serem utilizadas em outros arquivos
 module.exports = {
-                    novoCategoria,
-                    atualizarCategoria,
-                    excluirCategoria,
-                    listarCategoria,
-                    buscarCategoria,
-                    buscarUltimaCategoria
+                    novoproduto,
+                    atualizarproduto,
+                    excluirproduto,
+                    listarproduto,
+                    buscarproduto,
+                    buscarUltimaproduto
                 };

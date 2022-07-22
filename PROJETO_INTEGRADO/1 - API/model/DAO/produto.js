@@ -1,19 +1,19 @@
 /*************************************************************************************************************************************
 *   Projeto: Pizzaria   
-*   Objetivo: Model de categoria => Permite administrar as categorias da Pizzaria no Banco de Dados
+*   Objetivo: Model de produtos => Permite administrar os produtos da Pizzaria no Banco de Dados
 *   Autor: Marcel
 *   Data criação: 22/07/2022
 *   
 **************************************************************************************************************************************/
 
 // função para inserir um novo registro no BD
-const insertCategoria = async function(categoria) {
+const insertProduto = async function(produto) {
     let status = false;
 
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient();
 
-    const sql = "insert into tblCategoria (nome, icone) values ('"+categoria.nome+"', '"+categoria.icone+"')";
+    const sql = "insert into tblProduto (nome, icone) values ('"+Produto.nome+"', '"+Produto.icone+"')";
     const result = await prisma.$executeRawUnsafe (sql);
 
     if (result)
@@ -24,13 +24,13 @@ const insertCategoria = async function(categoria) {
 }
 
 //função para atualizar um registro no BD
-const updateCategoria = async function(categoria) {
+const updateProduto = async function(produto) {
     let status = false;
 
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient();
 
-    const sql = "update tblCategoria set nome = '"+categoria.nome+"', icone='"+categoria.icone+"' where id = " + categoria.id;
+    const sql = "update tblProduto set nome = '"+Produto.nome+"', icone='"+Produto.icone+"' where id = " + Produto.id;
     const result = await prisma.$executeRawUnsafe (sql);
 
     if (result)
@@ -41,13 +41,13 @@ const updateCategoria = async function(categoria) {
 }
 
 //função para apagar um registro no BD
-const deleteCategoria = async function(id) {
+const deleteProduto = async function(id) {
     let status = false;
 
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient();
 
-    const sql = "delete from tblCategoria where id="+id;
+    const sql = "delete from tblProduto where id="+id;
     const result = await prisma.$executeRawUnsafe (sql);
 
     if (result)
@@ -57,23 +57,23 @@ const deleteCategoria = async function(id) {
 }
 
 //função para listar todos os registros do BD
-const  selectAllCategoria = async function(rows, page) {
+const  selectAllProduto = async function(rows, page) {
 
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient();
 
     if (rows > 0 && page == 0)
-        sql = "select * from tblCategoria limit "+rows;
+        sql = "select * from tblProduto limit "+rows;
     else if (rows > 0 && page > 0) 
-        sql = "select * from tblCategoria limit "+rows+" offset "+page;
+        sql = "select * from tblProduto limit "+rows+" offset "+page;
     else
-        sql = "select * from tblCategoria";
+        sql = "select * from tblProduto";
   
-    //const rsCategoria = await prisma.$queryRaw `select * from tblCategoria`;
-    const rsCategoria = await prisma.$queryRawUnsafe (sql);
+    //const rsProduto = await prisma.$queryRaw `select * from tblProduto`;
+    const rsProduto = await prisma.$queryRawUnsafe (sql);
     // const allUsers = prisma.user.findMany;
-    if(rsCategoria.length > 0)
-       return rsCategoria;
+    if(rsProduto.length > 0)
+       return rsProduto;
     else
        return false;
 
@@ -81,35 +81,35 @@ const  selectAllCategoria = async function(rows, page) {
 }
 
 //função para listar todos os registros do BD
-const  selectByIdCategoria = async function(id) {
+const  selectByIdProduto = async function(id) {
    
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient();
 
-    const sql = "select * from tblCategoria where id="+id;
+    const sql = "select * from tblProduto where id="+id;
 
-    const rsCategoria = await prisma.$queryRawUnsafe(sql) ;
+    const rsProduto = await prisma.$queryRawUnsafe(sql) ;
     // const allUsers = prisma.user.findMany;
  
-    if(rsCategoria.length > 0)
-        return rsCategoria;
+    if(rsProduto.length > 0)
+        return rsProduto;
     else
         return false;
 }
 
 //função para Localizar o ultimo registros do BD
-const  selectByLastCategoria = async function() {
+const  selectByLastProduto = async function() {
    
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient();
 
-    const sql = "select * from tblCategoria order by id desc limit 1";
+    const sql = "select * from tblProduto order by id desc limit 1";
 
-    const rsCategoria = await prisma.$queryRawUnsafe(sql) ;
+    const rsProduto = await prisma.$queryRawUnsafe(sql) ;
     // const allUsers = prisma.user.findMany;
  
-    if(rsCategoria.length > 0)
-        return rsCategoria;
+    if(rsProduto.length > 0)
+        return rsProduto;
     else
         return false;
 }
@@ -117,10 +117,10 @@ const  selectByLastCategoria = async function() {
 
 //torna as funções globais para serem utilizadas em outros arquivos
 module.exports = {
-                    insertCategoria,
-                    updateCategoria,
-                    deleteCategoria,
-                    selectAllCategoria,
-                    selectByIdCategoria,
-                    selectByLastCategoria
+                    insertProduto,
+                    updateProduto,
+                    deleteProduto,
+                    selectAllProduto,
+                    selectByIdProduto,
+                    selectByLastProduto
                 };
