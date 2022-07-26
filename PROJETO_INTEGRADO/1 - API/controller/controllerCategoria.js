@@ -6,6 +6,8 @@
 *   
 **************************************************************************************************************************************/
 
+const { verifyJWT } = require('../controller/moduloJWT.js');
+
 //função para inserir um novo registro no BD
 const novoCategoria = async function(dados) {
     let status = false;
@@ -50,22 +52,30 @@ const excluirCategoria = async function(id) {
 }
   
 //função para listar todos os registros do BD
-const listarCategoria = async function(rows, page) {
-
-    let offset;
-
-    if (page == 1 || page == 0)
+const listarCategoria = async function(rows, page, token) {
+    require('../controller/moduloJWT.js');
+    
+    const auth = await verifyJWT(token);
+    console.log(auth);
+    if (auth)
     {
-        offset = 0;
-    }else if (page > 1){
-        offset = rows * (page-1);
+        let offset;
+
+        if (page == 1 || page == 0)
+        {
+            offset = 0;
+        }else if (page > 1){
+            offset = rows * (page-1);
+        }
+
+        //import do arquivo de funções
+        const categoria = require('../model/DAO/categoria.js');
+        result = await categoria.selectAllCategoria(rows, offset);
+
+        return result;
+    }else{
+        return {acesso: 'Acesso não autorizado.'};
     }
-
-    //import do arquivo de funções
-    const categoria = require('../model/DAO/categoria.js');
-    result = await categoria.selectAllCategoria(rows, offset);
-
-    return result;
 }
 
 //função para listar todos os registros do BD
