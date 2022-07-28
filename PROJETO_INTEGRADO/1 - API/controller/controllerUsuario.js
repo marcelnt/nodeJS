@@ -93,10 +93,10 @@ const autenticarUsuario = async function(dados) {
     const usuario = require('../model/DAO/usuario.js');
     const jwt = require('../controller/moduloJWT.js');
     result = await usuario.selectByAutenticUsuario(dados);
-    
+
     if (result)
     {
-        const newToken = await jwt.createJWT(result.id);
+        const newToken = await jwt.createJWT(result[0].id);
 
         if (newToken)
         {

@@ -36,7 +36,7 @@ const jsonParser = bodyParser.json();
         let page = 0;
         //recebe o token de validação de autenticação
         let token = request.headers['x-access-token'];
-        console.log(token);
+        //console.log(token);
 
         if (request.query["limit"])
             limit = request.query["limit"];
@@ -50,8 +50,16 @@ const jsonParser = bodyParser.json();
 
         if (listCategorias)
         {
-                statusCode = 200;
-                message = listCategorias;
+                if(typeof(listCategorias) == 'number')
+                {
+                    statusCode = listCategorias; //Erro 401 - não autorizado
+                    message = {acesso: 'Acesso não autorizado pelo sistema.'};
+                }
+                else
+                {
+                    statusCode = 200;
+                    message = listCategorias;
+                }
         }else{
                 statusCode = 404;
                 message = "Nenhum registro encontrado.";

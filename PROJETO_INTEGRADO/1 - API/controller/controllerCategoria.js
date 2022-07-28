@@ -56,7 +56,7 @@ const listarCategoria = async function(rows, page, token) {
     require('../controller/moduloJWT.js');
     
     const auth = await verifyJWT(token);
-    console.log(auth);
+
     if (auth)
     {
         let offset;
@@ -74,7 +74,7 @@ const listarCategoria = async function(rows, page, token) {
 
         return result;
     }else{
-        return {acesso: 'Acesso não autorizado.'};
+        return 401;
     }
 }
 
