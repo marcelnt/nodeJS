@@ -1,5 +1,7 @@
 const express = require('express');
 
+const port = process.env.PORT || 8080;
+
 //import a biblioteca de cors (permissão de acesso)
 // const cors = require('cors'); 
 const bodyParser = require('body-parser');
@@ -20,6 +22,16 @@ app.use ((request, response, next) => {
 });
 
 const jsonParser = bodyParser.json();
+
+app.get('/teste', cors(), async function(request, response){
+
+    let message = {message: "test ok"};
+    
+    response.status(200);
+    response.json({message});
+
+});
+
 
 /**********************************************************************************************************
  *  Autor: Marcel
@@ -641,6 +653,6 @@ const jsonParser = bodyParser.json();
 
 //Ativa o servidor HTTP para escutar na porta xxxx 8080, e cria uma função de CallBack para escrever uma mensagem
 //Sempre deve ser a ultima linha
-app.listen (8080, function(){
+app.listen (port, function(){
     console.log('Servidor aguardando requisições HTTP');
 });
