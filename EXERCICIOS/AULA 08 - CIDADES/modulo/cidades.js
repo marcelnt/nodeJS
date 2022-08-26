@@ -1,4 +1,4 @@
-const listaCidades =  [
+var listaCidades =  [
    {
       "sigla":"AC",
       "nome":"Acre",
@@ -22423,68 +22423,112 @@ const listaCidades =  [
    }
 ]
 
-// Tarefa: Criar um array com todos os estados do Brasil
+const getEstadosCidade = function (){
+   let arrayEstados = [];
+   listaCidades.forEach(item => {
+      // arrayEstados.push(item.sigla);
+      //let itens = {uf: item.sigla, nome:item.nome};
+      let itens = {};
+      itens.uf = item.sigla;
+      itens.nome = item.nome;
+      arrayEstados.push(itens);
+   });
 
-// Solução Imperativa
-let estados = [];
-const quantidadeEstados = listaCidades.length;
-for (let cont = 0; cont < quantidadeEstados; cont++){
-   const nomeEstado = listaCidades[cont].nome
-   estados.push(nomeEstado);
-}
-// console.log (estados)
+   return arrayEstados;
+};
 
-// Solução Declarativa
-const pegarNomeEstado = (estado) => estado.nome
-const estados2 = listaCidades.forEach(pegarNomeEstado)
+const getCidades = function (sigla){
+   let arrayCidades = []
+   let siglaEstado = sigla;
+   let erro = true;
+   listaCidades.forEach(item => {
+      if(item.sigla.indexOf(siglaEstado) == 0)
+      {
+         item.cidades.forEach(itemCidade => {
+            arrayCidades.push(itemCidade.nome);
+            erro=false;
+         });
+      }
 
-// console.log(estados2)
-
-// MAP
-// Executa uma função (callback) em cada
-// elemento do array, e retorna um array
-// novo do mesmo tamanho modificado ou não.
-// ARGUMENTOS PARA O CALLBACK
-// 1º - elemento
-// 2º - índice
-// 3º - array
+   });
+   if (erro)
+      return false;
+   else
+      return arrayCidades;
+};
 
 
-// Tarefa:  Criar um novo array com todas as cidade
-//          de um determinado estado.
-
-// Solução Imperativa
-
-let cidades = [];
-const qtdEstados = listaCidades.length;
-
-const estadoEscolhido = "RJ"
-
-for (let cont = 0; cont < qtdEstados; cont++) {
-   if (listaCidades[cont].sigla == estadoEscolhido) {
-      cidades = listaCidades[cont].cidades;
-   }
+module.exports = {
+   getEstadosCidade,
+   getCidades
 }
 
-console.log(cidades);
 
-// Solução Declarativa
-const estadoSelecionado = (estado) => estado.sigla == estadoEscolhido
-const cidades2 = listaCidades.filter(estadoSelecionado)
+// // Tarefa: Criar um array com todos os estados do Brasil
 
-console.log(cidades2)
+// // Solução Imperativa
+// let estados = [];
+// const quantidadeEstados = listaCidades.length;
+// for (let cont = 0; cont < quantidadeEstados; cont++){
+//    const nomeEstado = listaCidades[cont].nome
+//    estados.push(nomeEstado);
+// }
+// // console.log (estados)
+
+// // Solução Declarativa
+// const pegarNomeEstado = (estado) => estado.nome
+// const estados2 = listaCidades.forEach(pegarNomeEstado)
+
+// // console.log(estados2)
+
+// // MAP
+// // Executa uma função (callback) em cada
+// // elemento do array, e retorna um array
+// // novo do mesmo tamanho modificado ou não.
+// // ARGUMENTOS PARA O CALLBACK
+// // 1º - elemento
+// // 2º - índice
+// // 3º - array
+
+
+// // Tarefa:  Criar um novo array com todas as cidade
+// //          de um determinado estado.
+
+// // Solução Imperativa
+
+// let cidades = [];
+// const qtdEstados = listaCidades.length;
+
+// const estadoEscolhido = "RJ"
+
+// for (let cont = 0; cont < qtdEstados; cont++) {
+//    if (listaCidades[cont].sigla == estadoEscolhido) {
+//       cidades = listaCidades[cont].cidades;
+//    }
+// }
+
+// console.log(cidades);
+
+// // Solução Declarativa
+// const estadoSelecionado = (estado) => estado.sigla == estadoEscolhido
+// const cidades2 = listaCidades.filter(estadoSelecionado)
+
+// console.log(cidades2)
 
 
 
-function somar (a, b) {
-   return a + b;
-}
+// function somar (a, b) {
+//    return a + b;
+// }
 
-// FILTER
-// Filtra os elementos de um array
-// por meio de uma função(callback) e
-// retorna um novo array.
-// ARGUMENTOS PARA O CALLBACK
-// 1º - elemento
-// 2º - índice
-// 3º - array
+// // FILTER
+// // Filtra os elementos de um array
+// // por meio de uma função(callback) e
+// // retorna um novo array.
+// // ARGUMENTOS PARA O CALLBACK
+// // 1º - elemento
+// // 2º - índice
+// // 3º - array
+
+
+// module.exports = {listaCidades}
