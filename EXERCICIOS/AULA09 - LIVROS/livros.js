@@ -2358,34 +2358,34 @@ const getLivros = function (nome){
     let erro = true;
     let cont = 0;
 
-    // livros[0].books.forEach(item => {
-    //     if (item.title.toLocaleLowerCase().includes(nomeLivro.toLowerCase()))
-    //     {
-    //         books.push(
-    //             {
-    //                 nome : item.title,
-    //                 resumo : item.subtitle,
-    //                 capa : item.image
-    //             }
-    //         );
-    //         erro = false;
-    //         cont++;
-    //     }   
-    // });
+    livros[0].books.forEach(item => {
+        if (item.title.toLocaleLowerCase().includes(nomeLivro.toLowerCase()))
+        {
+            books.push(
+                {
+                    nome : item.title,
+                    resumo : item.subtitle,
+                    capa : item.image
+                }
+            );
+            erro = false;
+            cont++;
+        }   
+    });
 
-    // dados.total = cont;
-    // dados.books = books;
+    dados.total = cont;
+    dados.books = books;
 
-    // if (erro)
-    //     return false;
-    // else
-    //     return dados;
+    if (erro)
+        return false;
+    else
+        return dados;
 
-    const existe = (item) => item.title.toLocaleLowerCase().includes(nomeLivro.toLowerCase());
+    // const existe = (item) => item.title.toLocaleLowerCase().includes(nomeLivro.toLowerCase());
 
-    const livrosFilter = livros[0].books.filter(existe)
+    // const livrosFilter = livros[0].books.filter(existe)
 
-     return livrosFilter;
+    //  return livrosFilter;
 
 }
 
