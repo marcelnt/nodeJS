@@ -11,6 +11,14 @@ const bodyParser = require('body-parser');
 //import a biblioteca de cors (permissão de acesso)
 const cors = require('cors'); 
 
+//import a biblioteca de upload de imagens
+const multer  = require('multer');
+
+//Apagar arquivo
+const fs = require('fs');
+
+const upload = multer({ dest: 'arquivos/' })
+
 //instancia para a classe express
 const app = express();
 
@@ -70,7 +78,7 @@ const jsonParser = bodyParser.json();
     });
 
     //EndPoint Buscar pelo ID
-    app.get('/aluno/:id',cors(), async function(request, response){
+    app.get('/aluno/:id',cors(),  async function(request, response){
 
         let id = request.params.id;
 
@@ -84,7 +92,7 @@ const jsonParser = bodyParser.json();
     });
 
     //EndPoint Inserir novo registro
-    app.post('/aluno',cors(), jsonParser, async function(request, response){
+    app.post('/aluno',cors(), jsonParser, upload.single('foto'), async function(request, response){
         let message;
         let statusCode;
         let headerContentType;
@@ -93,10 +101,12 @@ const jsonParser = bodyParser.json();
 
         //try {
 
-            headerContentType = JSON.stringify(request.headers['content-type']);
-            headerContentType = headerContentType.replace(/"/g,'');
+            headerContentType = request.headers['content-type'].split(';');
+            //headerContentType = headerContentType[0].replace(/"/g,'');
 
-            if (headerContentType == "application/json")
+            // console.log(headerContentType[0]);
+
+            if (headerContentType[0] == "application/json")
             {
                 dados = request.body;
 
@@ -146,6 +156,28 @@ const jsonParser = bodyParser.json();
                     //     message = 'O item não pode ser criado';
                     // }
                 }
+            }else if (headerContentType[0] == "multipart/form-data"){
+                //Para fazer upload de imagens pelo node devemos utilizar a dependencia multer
+                //npm install --save multer
+                //console.log(request.file);
+                //   import do arquivo de funções
+                const uploadArquivo = require('./middleware/upload');
+                const image = await uploadArquivo.uploadImagem(request.file);
+          
+                
+                if (image.status)
+                {
+                    statusCode = 466;
+                    message = 'MESSAGE_ERROR.CONTENT_TYPE_JSON' + image.nome;
+                }else{
+                    
+                    fs.unlink('./arquivos/'+request.file.filename, function (err){
+                       
+                    });
+                    statusCode = 467;
+                    message = 'ERRO';
+                    
+                }
             }else{
                 statusCode = 415;
                 message = MESSAGE_ERROR.CONTENT_TYPE_JSON;
@@ -161,7 +193,7 @@ const jsonParser = bodyParser.json();
     });
 
     //EndPoint Atualizar um registro
-    app.put('/categoria/:id',cors(), jsonParser, async function(request, response){
+    app.put('/aluno/:id',cors(), jsonParser, async function(request, response){
 
         let message;
         let statusCode;
@@ -207,7 +239,7 @@ const jsonParser = bodyParser.json();
     });
 
     //EndPoint Apagar um registro
-    app.delete('/categoria/:id',cors(), async function(request, response){
+    app.delete('/aluno/:id',cors(), async function(request, response){
 
         let message;
         let statusCode;
