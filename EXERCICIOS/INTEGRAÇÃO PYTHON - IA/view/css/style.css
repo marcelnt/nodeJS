@@ -1,0 +1,79 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.imagePosition{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+header{
+    width: 100%;
+    height: 150px;
+    background-color: #2b2c2e;
+    padding-left: 5%;
+    padding-top: 1%;
+    box-sizing: border-box;
+}
+
+#logo{
+    width: 300px;
+    height: 100px;
+    background-image: url(../images/logo_senai.png);
+}
+
+footer{
+    width: 100%;
+    height: 50px;
+    background-color: #2b2c2e;
+}
+
+#message {
+    margin: auto;
+    width: 85%;
+    min-height: 300px;
+    height: auto;
+    overflow: auto;
+    /* border: solid 1px #ccc; */
+    padding: 10px;
+}
+
+.card{
+    margin: auto;
+    margin-bottom: 10px;
+    width: 80%;
+    height: 150px;
+    border: solid 1px #ccc;
+    float: left;
+    padding: 2%;
+
+}
+
+.card p {
+    width: inherit;
+    height: inherit;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /*font-size: 1.2em;*/
+    text-align: center;
+    line-height: 1.5;
+    color: #4b4d50;
+    
+}
+
+.card span {
+   
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.7em;
+    color: #4b4d50;
+    
+}
+
+.icone{
+    width: 10%;
+    height: 150px;
+    background-image: url('../images/professor.png');
+    float: left;
+
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/dados.js"></script>
+    <!-- Biblioteca JQuery -->
+    <script src="js/jquery/jquery-3.2.1.min.js"></script>
+    <!-- Script com a função de aumentar a fonte -->
+    <script src="js/fonte.js"></script>
+
+</head>
+<body>
+    <header>
+        <div id="logo" class="imagePosition"></div>
+    </header>
+    <!-- Botões de Acessibilidade -->
+    <button onClick="fonte('a');">A+</button> <!-- Botão + -->
+    <button onClick="fonte('n');" title="Normal">A</button> <!-- Botão - -->
+    <button onClick="fonte('d');">A-</button> <!-- Botão - -->
+
+    <div id="message">
+       
+    </div>
+    <footer>
+
+    </footer>
+</body>
+</html>
+<script>
+   const card =  setInterval(function() {
+                    fonte('b'); 
+                    createCard();
+                    
+                   
+            }, 5000);
+    
+</script>
