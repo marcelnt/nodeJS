@@ -87,7 +87,7 @@ const jsonParser = bodyParser.json();
         const aluno = await controllerAluno.buscarAluno(id);
 
         response.status(200);
-        response.json(listContato);
+        response.json(aluno);
 
     });
 

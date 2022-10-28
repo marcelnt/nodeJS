@@ -11,11 +11,28 @@ const novoAluno = async function(dados) {
     else
     {
         //import do arquivo de funções
-        const aluno = require('../model/DAO/aluno.js');
+        const aluno      = require('../model/DAO/aluno.js');
+        const alunoCurso = require('../model/DAO/alunoCurso.js');
+
         const result = await aluno.insertAluno(dados);
 
         if(result)
-            status = true;
+        {
+            let dadosAlunoCurso = {} ;
+
+            let id_aluno = await aluno.selectLastIdAluno();
+            let id_curso = dados.curso[0].id;
+            
+
+            dadosAlunoCurso.id_aluno = id_aluno;
+            dadosAlunoCurso.id_curso = id_curso;
+
+            const resultAlunoCurso = await alunoCurso.insertAlunoCurso(dadosAlunoCurso);
+
+            if (resultAlunoCurso)
+                status = true;
+
+        }
     
     }
 
@@ -37,12 +54,23 @@ const listarAlunos = async function() {
 
 //função para listar todos os registros do BD
 const buscarAluno = async function(id) {
+    let result = {};
+    
     //import do arquivo de funções
     const aluno = require('../model/DAO/aluno.js');
+    const alunoCurso = require('../model/DAO/alunoCurso.js');
 
-    result = await aluno.selectAllAlunos();
+    const dadosAluno = await aluno.selectByIdAluno(id);
 
-    return result;
+    const dadosCursoAluno = await alunoCurso.selectCursosByAluno(id);
+
+    // dadosAluno = JSON.stringify(dadosAluno);
+    dadosAluno[0].cursos = dadosCursoAluno;
+
+    // result.aluno = dadosAluno;
+    // console.log (dadosAluno);
+
+    return dadosAluno[0];
   
 }
 module.exports = {

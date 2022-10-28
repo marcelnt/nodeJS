@@ -1,13 +1,11 @@
-
-
 // função para inserir um novo registro no BD
-const insertAluno = async function(aluno) {
+const insertAlunoCurso = async function(alunoCurso) {
     let status = false;
 
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient();
 
-    const sql = "insert into tbl_aluno (nome, email, foto) values ('"+aluno.nome+"', '"+aluno.email+"', '"+aluno.foto+"')";
+    const sql = "insert into tbl_aluno_curso (id_aluno, id_curso) values ('"+alunoCurso.id_aluno+"', '"+alunoCurso.id_curso+"')";
     const result = await prisma.$executeRawUnsafe (sql);
  
 
@@ -19,7 +17,7 @@ const insertAluno = async function(aluno) {
 }
 
 //função para listar todos os registros do BD
-const  selectAllAlunos = async function() {
+const  selectAlunoCursoddd = async function(id) {
 
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient();
@@ -37,18 +35,22 @@ const  selectAllAlunos = async function() {
 }
 
 //função para listar todos os registros do BD
-const  selectByIdAluno = async function(id) {
+const  selectCursosByAluno = async function(idAluno) {
 
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient();
 
-    sql = "select CAST(id AS float) as id ,nome from tbl_aluno where id ="+id;
+    sql = `select tbl_curso.nome, tbl_curso.id 
+            from tbl_curso 
+                inner join tbl_aluno_curso 
+                on tbl_curso.id = tbl_aluno_curso.id_curso 
+            where tbl_aluno_curso.id_aluno =${idAluno}`;
   
     //const rsCategoria = await prisma.$queryRaw `select * from tblCategoria`;
-    const rsAlunos = await prisma.$queryRawUnsafe (sql);
+    const rsCursosAluno = await prisma.$queryRawUnsafe (sql);
 
-    if(rsAlunos.length > 0)
-       return rsAlunos;
+    if(rsCursosAluno.length > 0)
+       return rsCursosAluno;
     else
        return false;
 
@@ -73,8 +75,7 @@ const  selectLastIdAluno = async function() {
 }
 
 module.exports = {
-    selectAllAlunos,
-    selectByIdAluno,
-    insertAluno,
-    selectLastIdAluno
+    insertAlunoCurso,
+    selectLastIdAluno,
+    selectCursosByAluno
 }
