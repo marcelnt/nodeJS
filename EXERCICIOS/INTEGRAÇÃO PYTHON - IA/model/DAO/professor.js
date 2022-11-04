@@ -1,13 +1,18 @@
-
 //função para listar todos os registros do BD
+
+var { PrismaClient } = require('@prisma/client');
+var prisma = new PrismaClient();
+
 const  selectAllDescription = async function() {
 
-    const { PrismaClient } = require('@prisma/client');
-    const prisma = new PrismaClient();
+    //const { prisma } = require('./conexaoMySQL.js');
 
+    //console.log(prisma);
+    
     //const { prisma } = require('çonexaoMySQL.js');
 
-    sql = "select id, texto, date_format(data_hora, '%d/%m/%Y %k:%i') as data_hora from tbl_fala order by data_hora";
+    
+    sql = "select id, texto, date_format(data_hora, '%d/%m/%Y %k:%i') as data_hora from tbl_fala  where data_hora = current_date() order by data_hora " ;
   
     //const rsCategoria = await prisma.$queryRaw `select * from tblCategoria`;
     const rsDesc = await prisma.$queryRawUnsafe (sql);
