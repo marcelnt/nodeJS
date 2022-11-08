@@ -1,7 +1,7 @@
 
 const express = require('express');
 
-const port = process.env.PORT || 6060;
+const port = process.env.PORT || 8080;
 
 //import a biblioteca de cors (permissão de acesso)
 // const cors = require('cors'); 

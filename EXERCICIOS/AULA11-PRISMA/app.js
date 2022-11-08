@@ -2,7 +2,7 @@ const { MESSAGE_ERROR, MESSAGE_SUCCESS } = require('./modulo/config');
 
 const express = require('express');
 
-const port = process.env.PORT || 3030;
+const port = process.env.PORT || 8080;
 
 //import a biblioteca de cors (permissão de acesso)
 // const cors = require('cors'); 

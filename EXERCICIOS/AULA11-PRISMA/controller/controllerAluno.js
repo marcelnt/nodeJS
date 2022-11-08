@@ -43,12 +43,37 @@ const novoAluno = async function(dados) {
 
 //função para listar todos os registros do BD
 const listarAlunos = async function() {
+    // const dadosAlunos = [];
     //import do arquivo de funções
     const aluno = require('../model/DAO/aluno.js');
+    const alunoCurso = require('../model/DAO/alunoCurso.js');
 
     result = await aluno.selectAllAlunos();
 
-    return result;
+    // result.forEach(async item =>  {
+    //     //return Promise(async function (dadosAlunos){
+    //         const dadosCursoAluno = await alunoCurso.selectCursosByAluno(item.id);
+    //         item.curso = dadosCursoAluno;
+        
+    //         dadosAlunos.push(item);
+            
+            
+    //     //});
+    // });
+
+    //Precisamos trocar o  foreach pelo map pois neste exemplo precisamos retornar um novo objeto com o resultado do foreach (não retorna valor)
+    const dadosAlunos = result.map(async item =>  {
+            const dadosCursoAluno = await alunoCurso.selectCursosByAluno(item.id);
+            if (dadosCursoAluno)
+                item.curso = dadosCursoAluno;
+            else
+                item.curso = "Nenhum curso encontrado."
+        
+            return item;
+    });
+
+    //await foi utilizado para fazer com que a promessa seja realizada, porém como a variavel item esta também sendo executado como uma promessa então colocamos Promisse all()
+    return await Promise.all(dadosAlunos) ;
   
 }
 
