@@ -60,6 +60,7 @@ const listarAlunos = async function() {
             
     //     //});
     // });
+    //jhgjhgj
 
     //Precisamos trocar o  foreach pelo map pois neste exemplo precisamos retornar um novo objeto com o resultado do foreach (não retorna valor)
     const dadosAlunos = result.map(async item =>  {
@@ -98,8 +99,28 @@ const buscarAluno = async function(id) {
     return dadosAluno[0];
   
 }
+
+//função para listar todos os registros do BD
+const autenticarAluno = async function(login, senha) {
+     
+    //import do arquivo de funções
+    const aluno = require('../model/DAO/alunoUsuario.js');
+    const jwt = require('../controller/controllerJWT.js');
+
+    const dadosAluno = await aluno.selecAuthByPassword(login, senha);
+
+    if (dadosAluno){
+        let token = await jwt.createJWT(dadosAluno.id_aluno);
+        dadosAluno.token = token;
+        return dadosAluno;
+    }else
+        return false;
+
+}
+
 module.exports = {
     listarAlunos,
     buscarAluno,
-    novoAluno
+    novoAluno,
+    autenticarAluno
 }

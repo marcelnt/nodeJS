@@ -40,8 +40,24 @@ const jsonParser = bodyParser.json();
  *  Data: 22/07/20222
  ***********************************************************************************************************/
 
+    //Função para receber o Token enviado pelo header da requisição e validar
+    const verifyJWT = async function(request, response, next){
+        let token = request.headers['x-access-token'];
+        const jwt = require('./controller/controllerJWT.js');
+
+        const validade = await jwt.validateJWT(token);
+        console.log(validade);
+        if (validade){
+            //request.userId = validade;
+            next();
+        }else
+            return response.status(401).end();
+    }
+
+
+
     //EndPoint Listar todos os registros
-    app.get('/alunos', cors(), async function(request, response){
+    app.get('/alunos', verifyJWT, cors(), async function(request, response){
 
         let statusCode;
         let message;
@@ -89,6 +105,28 @@ const jsonParser = bodyParser.json();
         response.status(200);
         response.json(aluno);
 
+    });
+
+
+    //EndPoint Autenticar Aluno
+    app.post('/aluno/autenticar',cors(),jsonParser,  async function(request, response){
+
+        let login = request.body.login
+        let senha = request.body.senha
+
+    //   import do arquivo de funções
+        const controllerAluno = require('./controller/controllerAluno');
+        const aluno = await controllerAluno.autenticarAluno(login, senha);
+
+        console.log(aluno);
+
+        if(aluno){
+            response.status(200);
+            response.json(aluno);
+        }else{
+            response.status(415);
+            response.json("{'erro': 'Não autorizado'}");
+        }
     });
 
     //EndPoint Inserir novo registro
@@ -279,6 +317,7 @@ const jsonParser = bodyParser.json();
     
     });
 
+   
 
 //Ativa o servidor HTTP para escutar na porta xxxx 8080, e cria uma função de CallBack para escrever uma mensagem
 //Sempre deve ser a ultima linha

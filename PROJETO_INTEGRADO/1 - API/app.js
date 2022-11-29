@@ -639,10 +639,10 @@ app.get('/teste', cors(), async function(request, response){
 
     const verifyJWT = async function(request, response, token, next)
     {
-    
+
         //Verifica se o token recebido na aplicação é válido
         jwt.verify(token, SECRET, (err, decoded) =>{
-    
+
             if (err)
                 return response.status(401);
             else
